@@ -483,7 +483,7 @@ $(eval $(call KernelPackage,ipt-raw6))
 define KernelPackage/ipt-nat6
   TITLE:=IPv6 NAT targets
   KCONFIG:=$(KCONFIG_IPT_NAT6)
-  FILES:=$(foreach mod,$(IPT_NAT6-m),$(LINUX_DIR)/net/$(mod).ko)
+  FILES:=$(foreach mod,$(filter-out $(IPT_NAT-m),$(IPT_NAT6-m)),$(LINUX_DIR)/net/$(mod).ko)
   AUTOLOAD:=$(call AutoLoad,43,$(notdir $(IPT_NAT6-m)))
   $(call AddDepends/ipt,+kmod-nf-nat6)
   $(call AddDepends/ipt,+kmod-ipt-conntrack)
